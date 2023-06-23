@@ -33,7 +33,8 @@ function getById(req, res, next) {
 
 function create(req, res, next) {
     userService.create(req.body)
-        .then(() => res.json({ message: 'User created' }))
+        // .then(() => res.json({ message: 'User created' }))
+        .then((user) => res.json(user))
         .catch(next);
 }
 
@@ -45,7 +46,8 @@ function login(req, res, next) {
 
 function update(req, res, next) {
     userService.update(req.params.id, req.body)
-        .then(() => res.json({ message: 'User updated' }))
+        // .then(() => res.json({ message: 'User updated' }))
+        .then((user) => res.json(user))
         .catch(next);
 }
 

@@ -31,6 +31,10 @@ async function create(params) {
 
     // save user
     await user.save();
+
+    const usercrtd = await db.User.findOne({ options: ['scopes'], where: { email: params.email } });
+
+    return usercrtd;
 }
 
 async function login(params) {
@@ -72,6 +76,10 @@ async function update(id, params) {
     // copy params to user and save
     Object.assign(user, params);
     await user.save();
+
+    const usercrtd = await db.User.findOne({ options: ['scopes'], where: { email: params.email } });
+
+    return usercrtd;
 }
 
 async function _delete(id) {
