@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sequelized-be
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sequelized-be
+  template:
+    metadata:
+      labels:
+        app: sequelized-be
+    spec:
+      containers:
+      - name: sequelized-be
+        image: sequelized-backend-image
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 4040
