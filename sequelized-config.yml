@@ -4,4 +4,4 @@ metadata:
   name: antifraudbe-cm
 data:
   .env: |
-    REACT_APP_BASE_URL=http://10.43.80.81:31790/users    
+    REACT_APP_BASE_URL=http://{clusterip:port}/users    
