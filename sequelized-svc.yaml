@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sequelized-svc
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 4040
+    nodePort: 31790
+  selector:
+    app: sequelized-be
+  type: NodePort
+
+

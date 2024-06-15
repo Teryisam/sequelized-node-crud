@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: antifraudbe-cm
+data:
+  .env: |
+    REACT_APP_BASE_URL=http://{clusterip:nodeport}/users    
