@@ -7,17 +7,30 @@ module.exports = db = {};
 initialize();
 
 async function initialize() {
-    // create db if it doesn't already exist
-    const { host, port, user, password, database } = config.database;
+  const { host, port, user, password, database } = config.database;
+
+  try {
+    // Connect to MySQL and create DB if not exists
     const connection = await mysql.createConnection({ host, port, user, password });
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+    console.log(`✔️  Database '${database}' verified or created`);
 
-    // connect to db
-    const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
+    // Connect Sequelize to the DB
+    const sequelize = new Sequelize(database, user, password, {
+      host,
+      port,
+      dialect: 'mysql',
+      logging: false,
+    });
 
-    // init models and add them to the exported db object
+    // Initialize models
     db.User = require('../users/user.model')(sequelize);
 
-    // sync all models with database
+    // Sync models
     await sequelize.sync({ alter: true });
+    console.log('✔️  Sequelize models synced successfully');
+  } catch (error) {
+    console.error('❌ Failed to initialize database:', error.message);
+    process.exit(1); // Exit early if DB setup fails
+  }
 }
