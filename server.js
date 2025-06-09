@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const errorHandler = require('_middleware/error-handler');
 
+// middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(cors());
@@ -12,6 +13,11 @@ app.use(
       origin: "*",
     })
   );
+
+// ✅ health check route
+app.get('/health', (req, res) => {
+  res.status(200).send('pong');
+});
 
 // api routes
 app.use('/users', require('./users/users.controller'));
